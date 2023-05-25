@@ -1,91 +1,26 @@
-var botonEncriptar = document.querySelector(".btn-encriptar");
-var botonDesencriptar = document.querySelector(".btn-desencriptar");
-var munheco = document.querySelector(".contenedormunheco");
-var contenedor = document.querySelector(".contenedor-parrafo");
-var resultado = document.querySelector(".texto-resultado");
-
-botonEncriptar.onclick = encriptar;
-botonDesencriptar.onclick = desencriptar;
-
-function encriptar(){
-    ocultarAdelante();
-    var cajatexto = recuperarTexto();
-    resultado.textContent = encriptarTexto(cajatexto);
-}
-
-function desencriptar(){
-    ocultarAdelante();
-    var cajatexto = recuperarTexto();
-    resultado.textContent = desencriptarTexto(cajatexto);
-}
-
-function recuperarTexto(){
-    var cajatexto = document.querySelector(".cajatexto");
-}
-
-function ocultarAdelante(){
-    munheco.classList.add("ocultar");
-    contenedor.classList.add("ocultar");
-}
-
-function encriptarTexto(mensaje){
-    var texto = mensaje;
-    var textoFinal = "";
-
-    for(var i = 0; i < texto.length; i++){
-        if(texto[i] == "a"){
-            textoFinal = textoFinal + "ai"
-        }
-        else if(texto[i] == "e"){
-            textoFinal = textoFinal + "enter"
-        }
-        else if(texto[i] == "i"){
-            textoFinal = textoFinal + "imes"
-        }
-        else if(texto[i] == "o"){
-            textoFinal = textoFinal + "oben"
-        }
-        else if(texto[i] == "u"){
-            textoFinal = textoFinal + "ufat"
-        }
-        else{
-            textoFinal = textoFinal + texto[i]
-        }
+function encriptar() {
+    let texto = document.getElementById("texto").value;
+    let tituloMensaje = document.getElementById("titulo-mensaje");
+    let parrafo = document.getElementById("parrafo");
+    let muñeco = document.getElementById("muñeco");
+  
+    let textoCifrado = texto
+      .replace(/e/gi, "enter")
+      .replace(/i/gi, "imes")
+      .replace(/a/gi, "ai")
+      .replace(/o/gi, "ober")
+      .replace(/u/gi, "ufat");
+  
+    if (texto.length != 0) {
+      document.getElementById("texto").value = textoCifrado;
+      tituloMensaje.textContent = "Texto encriptado con éxito";
+      parrafo.textContent = "";
+      muñeco.src = "./img/encriptado.jpg";
+    } else {
+      muñeco.src = "./img/muñeco.png";
+      tituloMensaje.textContent = "Ningún mensaje fue encontrado";
+      parrafo.textContent = "Ingresa el texto que deseas encriptar o desencriptar";
+      swal("Ooops!", "Debes ingresar un texto", "warning");
     }
-    return textoFinal
-}
-
-function desencriptarTexto(mensaje){
-    var texto = mensaje;
-    var textoFinal = "";
-
-    for(var i = 0; i < texto.length; i++){
-        if(texto[i] == "a"){
-            textoFinal = textoFinal + "a"
-        }
-        else if(texto[i] == "e"){
-            textoFinal = textoFinal + "e"
-        }
-        else if(texto[i] == "i"){
-            textoFinal = textoFinal + "i"
-        }
-        else if(texto[i] == "o"){
-            textoFinal = textoFinal + "o"
-        }
-        else if(texto[i] == "u"){
-            textoFinal = textoFinal + "u"
-        }
-        else{
-            textoFinal = textoFinal + texto[i]
-        }
-    }
-    return textoFinal
-}
-
-const btnCopiar = document.querySelector(".btn-copiar");
-    btnCopiar.addEventListener("click", copiar = () => {
-    var contenido= document.querySelector(".texto-resultado").textContent;
-    navigator.clipboard.writeText(contenido);
-    console.log("hola");
-})
-
+  }
+   
